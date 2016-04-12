@@ -1,4 +1,4 @@
-package automation.framework.seleniumtest;
+package automation.framework.unittest.testcases;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class IntegrationIT {
+public class DummyTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -18,8 +18,6 @@ public class IntegrationIT {
 
 	@Test
 	public void test() {
-		
-		System.out.println("Ejecutando el test de integracion");
 		assertTrue(true);
 	}
 
