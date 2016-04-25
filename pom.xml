@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>automation.framework</groupId>
-  <artifactId>selenium-course</artifactId>
+  <artifactId>selenium-course-nextclass</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   
@@ -24,7 +24,11 @@
             <properties>
                 <skip.integration.tests>false</skip.integration.tests>
                 <skip.unit.tests>true</skip.unit.tests>
-                <test.suite.to.execute>**/*ITestSuite.java</test.suite.to.execute>
+                <test.suite.to.execute>**/GoogleITestSuite.java</test.suite.to.execute>
+                <browser>firefox</browser>
+                <webdriver.chrome.driver>./src/test/resources/drivers/chromedriver.exe</webdriver.chrome.driver>
+                <webdriver.ie.driver>./src/test/resources/drivers/IEDriverServer.exe</webdriver.ie.driver>
+                <phantomjs.binary.path>./src/test/resources/drivers/phantomjs.exe</phantomjs.binary.path>
             </properties>
         </profile>
         
@@ -79,6 +83,13 @@
   				<includes>
   					<include>${test.suite.to.execute}</include>
   				</includes>
+  				<systemPropertyVariables>
+               			<browser>${browser}</browser>
+                  		<!--Set properties passed in by the driverbinary downloader-->
+                  		<webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
+                  		<webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
+                  		<phantomjs.binary.path>${phantomjs.binary.path}</phantomjs.binary.path>
+            	</systemPropertyVariables>
   			</configuration>
   			<executions>
   				<execution>
