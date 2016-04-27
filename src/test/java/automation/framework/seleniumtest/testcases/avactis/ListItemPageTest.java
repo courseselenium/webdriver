@@ -4,24 +4,21 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import automation.framework.avactis.pages.ItemListPage;
-import automation.framework.avactis.ui.components.MainMenu.MainMenuOption;
-import automation.framework.avactis.pages.HomePage;
-import automation.framework.core.BaseTest;
+import automation.framework.avactis.components.MainMenu.MainMenuOption;
+import automation.framework.avactis.pages.home.HomePage;
+import automation.framework.avactis.pages.productlist.ComputersPage;
+import automation.framework.seleniumtest.BaseTest;
 
 public class ListItemPageTest extends BaseTest {
 
 	@Test
 	public void computers_betsellers_list_is_not_empty() {
 
-		HomePage homePage = new HomePage(driver, "http://demo.avactis.com/4.7.9/index.php");
-		homePage.open();
+		HomePage homePage = (HomePage) new HomePage(driver, "Avactis Demo Store").get();
 
-		ItemListPage computersPage = (ItemListPage) homePage
-				.clickOnMenuOption(MainMenuOption.COMPUTERS);
+		ComputersPage computersPage = 
+				(ComputersPage) homePage.clickOnMenuOption(MainMenuOption.COMPUTERS);
 		
 		assertTrue(computersPage.getTotalBestSellerProducts() >= 1);
-
 	}
-
 }

@@ -3,18 +3,15 @@ package automation.framework.seleniumtest.testcases;
 import static org.junit.Assert.*;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import automation.framework.seleniumtest.ParallelBaseTest;
 
 /**
  * 
@@ -23,34 +20,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  */
 
-public class GoogleSearchTest {
+public class GoogleSearchTest extends ParallelBaseTest {
 	
 	private String baseUrl = "http://www.google.com";
-	private WebDriver driver;
-
-	/**
-	 * El método anotado con el tag @Before se ejecuta
-	 * ANTES de cualquier ejecución de los métodos @Test
-	 * 
-	 * @throws Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		driver = new FirefoxDriver();
-		//driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
-	}
-
-	/**
-	 * El método anotado con el tag @After se ejecuta
-	 * DESPUÉS de cualquier ejecución de los métodos @Test
-	 * 
-	 * @throws Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+	
+    public GoogleSearchTest(String platform, String browserName, String browserVersion) {
+        this.platform = platform;
+        this.browserName = browserName;
+        this.browserVersion = browserVersion;
+    }
 
 	/**
 	 * El método anotado con el tag @Test representa
@@ -61,7 +39,7 @@ public class GoogleSearchTest {
 	@Test
 	public void searchTest() {
 		
-		//WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		
 		//Abrimos el navegador por la URL indicada.
 		driver.get(baseUrl);
@@ -77,10 +55,10 @@ public class GoogleSearchTest {
 		
 		//El metodo findElements devuelve una lista de elementos que cumplen con 
 		//el localizador pasado como parámetro.
-		List<WebElement> entries = driver.findElements(By.className("g"));
-		//List<WebElement> entries = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("g")));
+		//List<WebElement> entries = driver.findElements(By.className("g"));
+		List<WebElement> entries = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("g")));
 		
-		assertEquals(10, entries.size());
+		assertEquals(12, entries.size());
 		
 		//Obtenemos el primer elemento de la lista retornada.
 		WebElement firstEntry = entries.get(0);

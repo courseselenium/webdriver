@@ -32,6 +32,18 @@
             </properties>
         </profile>
         
+        <profile>
+        	<id>remote</id>
+        	<properties>
+        		<skip.integration.tests>false</skip.integration.tests>
+            	<skip.unit.tests>true</skip.unit.tests>
+            	<test.suite.to.execute>**/AvactisITestSuite.java</test.suite.to.execute>
+            	<browser>remote</browser>
+            	<remote-browser>firefox</remote-browser>
+            	<remote-server-url>http://localhost:4444/wd/hub</remote-server-url>
+            </properties>
+        </profile>
+        
   </profiles>
   
   <dependencies>
@@ -39,8 +51,14 @@
 	  	<groupId>org.seleniumhq.selenium</groupId>
 	  	<artifactId>selenium-java</artifactId>
 	  	<version>2.53.0</version>
-	  	<scope>test</scope>
   	</dependency>
+  	
+	<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.5-FINAL</version>
+			<scope>compile</scope>
+	</dependency>  	
 
   	<dependency>
 	  	<groupId>junit</groupId>
@@ -80,12 +98,16 @@
   			<artifactId>maven-failsafe-plugin</artifactId>
   			<version>2.19.1</version>
   			<configuration>
+  			<parallel>methods</parallel>
+  			<threadCount>5</threadCount>
   				<includes>
   					<include>${test.suite.to.execute}</include>
   				</includes>
   				<systemPropertyVariables>
                			<browser>${browser}</browser>
-                  		<!--Set properties passed in by the driverbinary downloader-->
+                  		<!--Set properties passed in by the driver binary downloader-->
+                  		<remote-browser>${remote-browser}</remote-browser>
+                  		<remote-server-url>${remote-server-url}</remote-server-url>
                   		<webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
                   		<webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
                   		<phantomjs.binary.path>${phantomjs.binary.path}</phantomjs.binary.path>
