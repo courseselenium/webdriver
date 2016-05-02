@@ -30,33 +30,35 @@ import static org.junit.Assert.fail;
  */
 public abstract class BaseTest {
 
-	protected static WebDriver driver;
+	protected WebDriver driver;
 
 	@Before
-	public static void setUp() throws Exception {
+	public void setUp() throws Exception {
 
 		String browser = System.getProperty("browser");
-		
+
 		DesiredCapabilities capabilities;
-		
+
 		if (browser != null) {
 			switch (browser) {
-			
-			case "remote" :
+
+			case "remote":
 				capabilities = new DesiredCapabilities();
 				capabilities.setBrowserName(System.getProperty("remote-browser"));
 				driver = new RemoteWebDriver(new URL(System.getProperty("remote-server-url")), capabilities);
 				break;
+
 			case "phantomjs":
-/**
-				//File phantomjs = Phanbedder.unpack(); DesiredCapabilities
-				 capabilities = new DesiredCapabilities();
-				 capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-				 System.getProperty("phantomjs.binary.path")); 
-				 driver = new PhantomJSDriver(capabilities);
-**/ 
+				/**
+				 * //File phantomjs = Phanbedder.unpack(); DesiredCapabilities
+				 * capabilities = new DesiredCapabilities();
+				 * capabilities.setCapability(PhantomJSDriverService.
+				 * PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+				 * System.getProperty("phantomjs.binary.path")); driver = new
+				 * PhantomJSDriver(capabilities);
+				 **/
 				break;
-				
+
 			case "chrome":
 				driver = new ChromeDriver();
 				break;
@@ -81,13 +83,13 @@ public abstract class BaseTest {
 		} else {
 			driver = new FirefoxDriver();
 		}
-		
+
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 	}
 
 	@After
-	public static void tearDown() {
+	public void tearDown() {
 		driver.quit();
 	}
 
